@@ -12,7 +12,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "heroku-postbuild": "ng build",
-    "serve:ssr:steam-engine": "node dist/steam-engine/server/server.mjs"
+    "serve:ssr:chris-thillet-angular-web-app": "node dist/chris-thillet-angular-web-app/server/server.mjs"
   },
   "private": true,
   "dependencies": {
@@ -30,7 +30,7 @@
     "@angular/ssr": "^18.0.2",
     "@types/sockjs-client": "1.5.4",
     "express": "^4.19.2",
-    "node": "^22.3.0",
+    "node": "^20.14.0",
     "path": "^0.12.7",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
