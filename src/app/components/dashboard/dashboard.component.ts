@@ -11,6 +11,11 @@ type Item = {
   price: number;
 }
 
+type ItemsSold = {
+  name: string;
+  price: number;
+}
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -39,7 +44,7 @@ export class DashboardComponent {
     },
   ];
 
-  noItems: Item[] = [
+  noItems: ItemsSold[] = [
     {
       name: 'Thank you',
       price: 0

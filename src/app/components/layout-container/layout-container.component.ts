@@ -29,8 +29,8 @@ export class LayoutContainerComponent {
 
   public routeLinks = [
     { link: "dashboard", name: "Dashboard", icon: "dashboard" },
-    { link: "events", name: "Events", icon: "event" },
-    { link: "notifications", name: "Notifications", icon: "notifications" },
+    { link: "event", name: "Events", icon: "event" },
+    { link: "notification", name: "Notifications", icon: "notifications" },
   ];
 
 }

@@ -12,6 +12,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "heroku-postbuild": "ng build",
+    "postinstall": "ng build --output-path=dist/chris-thillet-angular-web-app",
     "serve:ssr:chris-thillet-angular-web-app": "node dist/chris-thillet-angular-web-app/server/server.mjs"
   },
   "private": true,
