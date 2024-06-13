@@ -8,6 +8,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
