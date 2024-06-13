@@ -1,20 +1,20 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #sidenav mode="side" opened class="sidenav" [class.closed]="!isExpanded">
     @if (isExpanded) {
-      <div style="height: 35px; width: 200px; background: grey;">
-        <mat-icon style="margin-left: 85px; margin-top: 3px; font-size: 26px; color: white">change_history</mat-icon>
-      </div>
-<!--      <img-->
-<!--        style="padding-left: 10px; margin-top: -10px;" ngSrc="cuLogo.png"-->
-<!--        alt="ag-app-ui" height="60" width="160" priority>-->
+<!--      <div style="height: 35px; width: 200px; background: grey;">-->
+<!--        <mat-icon style="margin-left: 85px; margin-top: 3px; font-size: 26px; color: white">change_history</mat-icon>-->
+<!--      </div>-->
+      <img
+        style="padding-left: 10px; margin-top: -10px;" ngSrc="cuLogo.png"
+        alt="ag-app-ui" height="60" width="160" priority>
     } @else {
-      <div style="height: 35px; width: 60px; background: grey;">
-        <mat-icon style="margin-left: 15px; margin-top: 3px; font-size: 26px; color: white">change_history</mat-icon>
-      </div>
-<!--      <img-->
-<!--        style="margin-left: 14px; margin-top: 7px;"-->
-<!--        ngSrc="favicon.ico"-->
-<!--        alt="ag-app-ui" height="27" width="27" priority>-->
+<!--      <div style="height: 35px; width: 60px; background: grey;">-->
+<!--        <mat-icon style="margin-left: 15px; margin-top: 3px; font-size: 26px; color: white">change_history</mat-icon>-->
+<!--      </div>-->
+      <img
+        style="margin-left: 14px; margin-top: 7px;"
+        ngSrc="favicon.ico"
+        alt="ag-app-ui" height="27" width="27" priority>
     }
 
     <app-layout-container

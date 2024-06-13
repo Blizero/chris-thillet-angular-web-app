@@ -6,7 +6,7 @@ export const routes: Routes = [
   {path: '/', redirectTo: '/dashboard'},
   {path: '', redirectTo: '/dashboard'},
   {path: 'dashboard', component: DashboardComponent},
-  { path: '**', redirectTo: '404' },
+  { path: '**', redirectTo: '404', pathMatch: 'full' },
   { path: '404', component: PathNotFoundComponent },
   // {path: 'events', component: DashboardComponent},
   // {path: 'notifications', component: DashboardComponent},
