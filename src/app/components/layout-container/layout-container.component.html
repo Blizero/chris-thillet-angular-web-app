@@ -1,0 +1,17 @@
+<section>
+  <mat-list class="cu-app-nav">
+    @for (route of routeLinks; track route.link) {
+      <a
+        mat-list-item
+        routerLinkActive="active-link"
+        class="hover"
+        routerLink="{{ route.link }}">
+        <mat-icon style="cursor: pointer;">
+          {{ route.icon }}</mat-icon>
+        @if (isExpanded) {
+          <span matLine>  {{ route.name }}</span>
+        }
+      </a>
+    }
+  </mat-list>
+</section>

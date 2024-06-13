@@ -1,1 +1,141 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+mat-sidenav[style] {
+  visibility: visible !important;
+}
+.mat-drawer {
+  transform: none !important;
+}
+
+.mat-drawer-inner-container {
+  border-radius: 0 !important;
+  background: #434649;
+  overflow: hidden !important;
+}
+
+.content-container {
+  min-height: 100vh;
+  margin-top: 35px;
+  box-sizing: border-box;
+  padding: 25px;
+  background-color: #424649;
+}
+
+
+//LOGIN
+.mat-form-field-login-actions-fill .mat-form-field-flex {
+  background-color: rgb(235 249 253 / 96%) !important;
+  box-shadow: none !important;
+  color: #353333 !important;
+  height: 39px !important;
+  width: 100% !important;
+  border: solid 1px #bebbbb !important;
+}
+
+
+.login-input .mat-input-element {
+  font: inherit;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  vertical-align: bottom;
+  text-align: inherit;
+  box-sizing: content-box;
+  color: #4f4e4e !important;
+}
+
+.mat-form-field-login-actions-fill .mat-form-field-flex {
+  background-color: rgb(235 249 253 / 96%) !important;
+  box-shadow: none !important;
+  color: #353333 !important;
+  height: 39px !important;
+  width: 100% !important;
+  border: solid 1px #bebbbb !important;
+}
+
+// Sign In Page
+.panel-heading-login {
+  color: #ffffff !important;
+  background-color: #ffbe3d;
+  border-color: #232323 !important;
+  height: 20px;
+  padding: 5px;
+  border-radius: 2px;
+}
+
+
+.login-placeholder::placeholder {
+  color: red; /* Replace with your desired color */
+  opacity: 1; /* Override default opacity */
+}
+
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: var(--mdc-filled-text-field-container-color);
+  border-radius: 0 !important;
+}
+
+.mdc-text-field--no-label:not(.mdc-text-field--textarea) .mat-mdc-form-field-input-control.mdc-text-field__input, .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
+  height: auto;
+  background: #ffffff00 !important;
+}
+
+
+.example-right-align {
+  text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}
+
+mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: #dfdfdf !important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input {
+  caret-color: #4bffde;
+}
+
+.mat-mdc-raised-button-valid .mat-mdc-button-touch-target {
+  position: absolute;
+  background-color: #39d7bb !important;
+  top: 50%;
+  height: 48px;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: var(--mat-protected-button-touch-target-display);
+  color: white !important;
+}
+
+.mat-mdc-raised-button-invalid .mat-mdc-button-touch-target {
+  position: absolute;
+  top: 50%;
+  height: 48px;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: var(--mat-protected-button-touch-target-display);
+  color: white !important;
+}
+
+.login-form-text-valid {
+  color: #ffffff !important;
+}
+
+.login-form-text-invalid  {
+  color: grey !important;
+}
