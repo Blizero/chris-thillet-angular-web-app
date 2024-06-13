@@ -4,7 +4,6 @@ import {MatTooltip} from "@angular/material/tooltip";
 import {MatLine} from "@angular/material/core";
 import {MatList, MatListItem} from "@angular/material/list";
 import {RouterLink, RouterLinkActive} from "@angular/router";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @Component({
   selector: 'app-layout-container',

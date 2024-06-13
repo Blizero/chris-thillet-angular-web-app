@@ -7,7 +7,7 @@ app.use(express.static(path.join(__dirname, 'dist/chris-thillet-angular-web-app/
 
 // Send all requests to index.html
 app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'dist/chris-thillet-angular-web-app/browser/index.csr.html'));
+  res.sendFile(path.join(__dirname, 'dist/chris-thillet-angular-web-app/browser/index.html'));
 });
 
 // Set the port

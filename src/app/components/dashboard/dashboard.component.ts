@@ -54,6 +54,7 @@ export class DashboardComponent {
   itemList = signal(this.items);
 
   totalPrice = computed(() => {
+    console.log('Total Prize: ', this.itemList().reduce((acc, curr) => acc + curr.price, 0));
     return this.itemList().reduce((acc, curr) => acc + curr.price, 0);
   });
 
