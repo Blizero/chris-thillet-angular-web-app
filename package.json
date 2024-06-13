@@ -10,6 +10,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "heroku-postbuild": "ng build",
     "serve:ssr:steam-engine": "node dist/steam-engine/server/server.mjs"
   },
   "private": true,
