@@ -1,13 +1,15 @@
 import { Routes } from '@angular/router';
-import {DashboardComponent} from "./components/dashboard/dashboard.component";
+import {GeminiAiComponent} from "./components/gemini-ai/gemini-ai.component";
 import {PathNotFoundComponent} from "./components/path-not-found/path-not-found.component";
+import {GeminiAiActivityComponent} from "./components/gemini-ai-activity/gemini-ai-activity.component";
+import {InfoComponent} from "./components/info/info.component";
 
 export const routes: Routes = [
-  {path: '/', redirectTo: '/dashboard'},
-  {path: '', redirectTo: '/dashboard'},
-  {path: 'dashboard', component: DashboardComponent},
-  { path: '**', redirectTo: '404', pathMatch: 'full' },
+  // {path: '/', redirectTo: '/dashboard'},
+  {path: '', redirectTo: '/gemini-ai', pathMatch: 'full'},
+  {path: 'gemini-ai', component: GeminiAiComponent},
+  {path: 'activity', component: GeminiAiActivityComponent},
+  {path: 'info', component: InfoComponent},
+  // { path: '**', redirectTo: '404', pathMatch: 'full' },
   { path: '404', component: PathNotFoundComponent },
-  // {path: 'events', component: DashboardComponent},
-  // {path: 'notifications', component: DashboardComponent},
 ];

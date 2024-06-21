@@ -1,12 +1,15 @@
 # Flask-MongoDB-App
-This is a Flask application where we are going to connect MongoDB with Flask Application
-# | Chris Thillet - CU Boulder |
-| Chris Thillet -June 2024 |
+This is a Flask and Angular 18 Application that connects to MongoDB and Google Gemini's AI API in order to create an AI chatbot
 
 # Flask Application with MongoDB Database Connection
 
-This is a simple Flask web application that demonstrates how to connect to a MongoDB database. It allows you to add and delete ages guessed from name using the Agify API, https://api.agify.io/?name={{name}}
-There's a limit of 100 requests per window, if the limit is reached, the error message "Request limit reached" obtained will be displayed and saved to the database.
+This is a simple Flask web application that demonstrates how to connect to a MongoDB database.
+It utilizes google gemini's api models to generate text responses.
+
+## Google AI Studio
+GOOGLE_API_KEY is required in order to generate AI responses locally
+https://aistudio.google.com/app/apikey
+
 
 ## Prerequisites
 
@@ -20,7 +23,6 @@ Before running the application, make sure you have the following installed:
 Create the virtual environment and source the activation script:  python3 -m venv venv && source venv/bin/activate
 
 Install Flask: pip install Flask
-
 
 You can install the required Python packages using pip:
 
@@ -40,7 +42,7 @@ Start the MongoDB server in your command prompt:
 mongosh
 ```
 
-Create a MongoDB database named flask_db and a collection named todos where your data will be stored.
+Create a MongoDB database named google_ai_api and a collection named aiResponses where your data will be stored.
 
 Start the Flask application:
 ```bash
@@ -50,9 +52,8 @@ python app.py
 The application should now be running on http://127.0.0.1:5000/. You can access it in your web browser.
 
 Usage
-To guess a new age, visit the homepage and use the form to submit a name and it will make a request to agify's API, generating a new name
-
-To delete a name, click on the "Delete" button next to the item.
+YoRha 2B powered by Google Gemini, accessible to everyone without needing an account. 
+This chatbot leverages advanced natural language processing to deliver intelligent, accurate, and context-aware responses to user queries.
 
 Project Structure
 app.py: The main Flask application.
@@ -63,3 +64,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 Acknowledgments
 This project was created as an educational resource for connecting Flask with MongoDB.
 Feel free to modify this README to include any additional information specific to your project. Enjoy using your Flask application with MongoDB!
+
+### Application Created by Chris Thillet (Blizero)- June 2024 
