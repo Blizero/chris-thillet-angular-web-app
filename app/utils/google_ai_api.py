@@ -28,19 +28,6 @@ def generate_text(prompt):
     response = model.generate_content(prompt)  # Replace `some_function` with the actual function
     return response
 
-# def gen_cq_gemini(max_retries = 4, delay = 2):
-#   retry_count = 0
-#   model = genai.GenerativeModel('gemini-pro')
-#   question = """Few-shot Prompt Goes Here"""
-#   while retry_count < max_retries:
-#     try:
-#       response = model.generate_content(question)
-#       return response.text except
-#     Exception as e: print(f"Error: {e}")
-#         time.sleep(delay)
-#         retry_count += 1
-#     return None
-
 
 def gen_cq_gemini(prompt, max_retries=4, delay=2):
     retry_count = 0
@@ -57,8 +44,3 @@ def gen_cq_gemini(prompt, max_retries=4, delay=2):
     return None
 
 
-# def generate_text(prompt):
-#     model = genai.GenerativeModel('gemini-pro')
-#     question = prompt
-#     response = model.generate_content(question)
-#     return response.text

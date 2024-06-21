@@ -22,18 +22,28 @@ CORS(app, resources={r"/*": {"origins": allowed_origins}})
 @app.route('/generate', methods=['GET', 'POST', 'OPTIONS'])
 @cross_origin(headers=['Content-Type'])
 def generate_content():
-    configure_api()
-    jsonPrompt = request.get_json()
-    prompt = jsonPrompt.get('prompt')
-    response = gen_cq_gemini(prompt)
-    markdown_result = to_markdown(response)
-    display(markdown_result)
-    print('GEMINI Generate Result: ', response)
+    try:
+        configure_api()
+        jsonPrompt = request.get_json()
+        prompt = jsonPrompt.get('prompt')
+        response = gen_cq_gemini(prompt)
+        markdown_result = to_markdown(response)
+        display(markdown_result)
+        print('GEMINI Generate Result: ', response)
 
-    if response:
-        return jsonify({'content': response})
-    else:
-        return jsonify({'error': 'Failed to generate content after multiple retries.'}), 500
+        if response:
+            return jsonify({'content': response})
+        else:
+            return jsonify({'error': 'Failed to generate content after multiple retries.'}), 500
+
+    except Exception as e:
+        print(f"Error in /generate: {e} ")
+        return jsonify({'error during AI generation ': str(e)}), 500
+
+    # if response:
+    #     return jsonify({'content': response})
+    # else:
+    #     return jsonify({'error': 'Failed to generate content after multiple retries.'}), 500
 
 
 @app.route('/responses', methods=['GET', 'OPTIONS'])

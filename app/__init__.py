@@ -46,7 +46,7 @@ def create_app():
     CORS(app, resources={r"/*": {"origins": allowed_origins}})
 
     # Set up the Google API key (fetch from environment or Colab userdata)
-    app.config['GOOGLE_API_KEY'] = os.getenv('GOOGLE_API_KEY')
+    # app.config['GOOGLE_API_KEY'] = os.getenv('GOOGLE_API_KEY')
 
     with app.app_context():
         from . import routes
