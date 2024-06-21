@@ -1,1 +1,1 @@
-web: python python app.py
+web: gunicorn chris-thillet-angular-web-app.app
