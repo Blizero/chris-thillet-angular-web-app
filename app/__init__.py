@@ -15,7 +15,7 @@ allowed_origins = [
 def create_app():
     app = Flask(__name__, static_folder='../dist/browser')
     load_dotenv()  # Load environment variables from .env file
-#     print("GOOGLE_API_KEY:", os.getenv('GOOGLE_API_KEY'))
+    print("GOOGLE_API_KEY:", os.getenv('GOOGLE_API_KEY'))
     app.config.from_object('config.Config')
 
     @app.route('/')
