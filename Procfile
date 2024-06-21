@@ -1,1 +1,1 @@
-web: gunicorn chris-thillet-angular-web-app.app --log-file
+web: gunicorn chris-thillet-angular-web-app.app
