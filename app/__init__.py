@@ -8,13 +8,14 @@ from pymongo import MongoClient
 allowed_origins = [
     "http://localhost:4200",
     "https://chris-thillet-angular-web-app-ca1b7f946c88.herokuapp.com"
+    "https://chris-thillet-angular-web-app-ca1b7f946c88.herokuapp.com/generate"
 ]
 
 
 def create_app():
     app = Flask(__name__, static_folder='../dist/browser')
     load_dotenv()  # Load environment variables from .env file
-    # print("GOOGLE_API_KEY:", os.getenv('GOOGLE_API_KEY'))
+#     print("GOOGLE_API_KEY:", os.getenv('GOOGLE_API_KEY'))
     app.config.from_object('config.Config')
 
     @app.route('/')
@@ -45,7 +46,7 @@ def create_app():
     CORS(app, resources={r"/*": {"origins": allowed_origins}})
 
     # Set up the Google API key (fetch from environment or Colab userdata)
-    # app.config['GOOGLE_API_KEY'] = os.getenv('GOOGLE_API_KEY')
+    app.config['GOOGLE_API_KEY'] = os.getenv('GOOGLE_API_KEY')
 
     with app.app_context():
         from . import routes
