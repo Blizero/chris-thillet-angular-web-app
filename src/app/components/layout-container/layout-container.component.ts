@@ -4,7 +4,6 @@ import {MatTooltip} from "@angular/material/tooltip";
 import {MatLine} from "@angular/material/core";
 import {MatList, MatListItem} from "@angular/material/list";
 import {RouterLink, RouterLinkActive} from "@angular/router";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @Component({
   selector: 'app-layout-container',
@@ -28,9 +27,9 @@ export class LayoutContainerComponent {
 
 
   public routeLinks = [
-    { link: "dashboard", name: "Dashboard", icon: "dashboard" },
-    { link: "events", name: "Events", icon: "event" },
-    { link: "notifications", name: "Notifications", icon: "notifications" },
+    { link: "gemini-ai", name: "YoRHa 2B", icon: "call_to_action" },
+    { link: "activity", name: "Activity", icon: "view_list" },
+    { link: "info", name: "Info", icon: "info_outline" },
   ];
 
 }

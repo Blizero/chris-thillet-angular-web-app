@@ -2,8 +2,8 @@
   <mat-sidenav #sidenav mode="side" opened class="sidenav" [class.closed]="!isExpanded">
     @if (isExpanded) {
       <img
-        style="padding-left: 10px; margin-top: -10px;" ngSrc="cuLogo.png"
-        alt="ag-app-ui" height="60" width="160" priority>
+        style="padding-left: 10px; margin-top: 0" ngSrc="yorhaLogo.png"
+        alt="ag-app-ui" height="45" width="160" priority>
     } @else {
       <img
         style="margin-left: 14px; margin-top: 7px;"
@@ -22,7 +22,7 @@
       <mat-icon style="color:grey; cursor: pointer;" (click)="toggleMenu()">
         {{ isExpanded ? "keyboard_backspace" : "dehaze" }}
       </mat-icon>
-      <span style="margin-left: 20px; color: white">Game Haven Store</span>
+      <span style="margin-left: 20px; color: white">Google Gemini AI - YoRHa No.2 Type B Ver. 0.57853</span>
     </mat-toolbar>
     <div class="content-container routers-margin" [class.closed]="!isExpanded" [class.opened]="isExpanded">
       <router-outlet></router-outlet>

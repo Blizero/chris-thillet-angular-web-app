@@ -1,23 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
-
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 mat-sidenav[style] {
   visibility: visible !important;
 }
+
 .mat-drawer {
   transform: none !important;
 }
 
 .mat-drawer-inner-container {
   border-radius: 0 !important;
-  background: #434649;
+  background: #abaaa4;
   overflow: hidden !important;
 }
 
 .content-container {
-  min-height: 100vh;
   margin-top: 35px;
   box-sizing: border-box;
   padding: 25px;
@@ -138,4 +137,10 @@ mdc-text-field--filled:not(.mdc-text-field--disabled) {
 
 .login-form-text-invalid  {
   color: grey !important;
+}
+
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: #4a5053d6 !important;
+  border-radius: 3px !important;
 }
