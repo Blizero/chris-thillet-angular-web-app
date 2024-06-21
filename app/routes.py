@@ -10,12 +10,16 @@ from IPython.display import Markdown
 from app.schemes import ResponseSchema
 from app.utils.google_ai_api import configure_api, generate_text, gen_cq_gemini, to_markdown
 
+allowed_origins = [
+    "http://localhost:4200",
+    "https://chris-thillet-angular-web-app-ca1b7f946c88.herokuapp.com"
+]
 
-CORS(app, resources={r"/*": {"origins": "http://localhost:4200"}})
+CORS(app, resources={r"/*": {"origins": allowed_origins}})
 
 
 @app.route('/generate', methods=['GET', 'POST', 'OPTIONS'])
-@cross_origin(origin='http://localhost:4200', headers=['Content-Type'])
+@cross_origin(headers=['Content-Type'])
 def generate_content():
     configure_api()
     jsonPrompt = request.get_json()
@@ -32,7 +36,7 @@ def generate_content():
 
 
 @app.route('/responses', methods=['GET', 'OPTIONS'])
-@cross_origin(origin='http://localhost:4200', headers=['Content-Type'])
+@cross_origin(headers=['Content-Type'])
 def get_data():
     data = app.aiResponses.find()
     response_schema = ResponseSchema(many=True)
@@ -42,7 +46,7 @@ def get_data():
 
 
 @app.route('/save-response', methods=['GET', 'POST', 'OPTIONS'])
-@cross_origin(origin='http://localhost:4200', headers=['Content-Type'])
+@cross_origin(headers=['Content-Type'])
 def save_response():
     jsonResponse = request.get_json()
 
@@ -60,7 +64,7 @@ def save_response():
 
 
 @app.route('/text-generate', methods=['GET', 'POST', 'PUT', 'OPTIONS'])
-@cross_origin(origin='http://localhost:4200', headers=['Content-Type'])
+@cross_origin(headers=['Content-Type'])
 def example_route():
     if request.method == 'OPTIONS':
         # Properly handle preflight requests

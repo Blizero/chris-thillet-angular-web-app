@@ -5,6 +5,11 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 from pymongo import MongoClient
 
+allowed_origins = [
+    "http://localhost:4200",
+    "https://chris-thillet-angular-web-app-ca1b7f946c88.herokuapp.com"
+]
+
 
 def create_app():
     app = Flask(__name__, static_folder='../dist/browser')
@@ -37,7 +42,7 @@ def create_app():
     app.aiResponses = app.db.aiResponses
 
     # Enable CORS for all routes
-    CORS(app, resources={r"/*": {"origins": "*"}})
+    CORS(app, resources={r"/*": {"origins": allowed_origins}})
 
     # Set up the Google API key (fetch from environment or Colab userdata)
     # app.config['GOOGLE_API_KEY'] = os.getenv('GOOGLE_API_KEY')
