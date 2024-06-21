@@ -1,0 +1,68 @@
+.toggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 25px 0;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.gemini-ai-app-nav {
+
+  .active-link {
+    background-color: rgba(50, 54, 54, 0.29);
+  //border-left: solid 5px #d29419;
+    mat-icon {
+      color: #19d2af;
+    }
+    span {
+      position: absolute;
+      margin-left: 6px;
+      color: #c5c5c5;
+      font-weight: initial;
+      cursor: pointer;
+    }
+  }
+
+  .hover {
+  //transition-duration: 400ms;
+  //transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-property: transform, border, background-color;
+  }
+
+  mat-list-item,
+  a {
+    border: none;
+    box-sizing: border-box;
+    text-decoration: none;
+    &:hover {
+      cursor: pointer;
+    //background-color: rgba(126, 125, 125, 0.45);
+    //border-left: solid 5px #d29419;
+      mat-icon {
+        color: #d29419;
+      }
+      span {
+        position: absolute;
+        margin-left: 6px;
+        color: #c5c5c5;
+        font-weight: initial;
+        cursor: pointer;
+      }
+    }
+  }
+
+  mat-icon {
+    color: #777572;
+  }
+
+  span {
+    position: absolute;
+    margin-left: 6px;
+    color: #777572;
+    font-weight: initial;
+    cursor: pointer;
+  }
+
+}

@@ -1,2 +1,12 @@
+Flask==3.0.3
+Flask-CORS==3.0.10
+Flask-PyMongo==2.3.0
+python-dotenv==1.0.1
 gunicorn==22.0.0
+google-generativeai==0.1.0
+requests==2.32.3
+pymongo==4.7.3
+google==3.0.0
+ipython==8.18.1
+marshmallow==3.21.3
 packaging==24.1
