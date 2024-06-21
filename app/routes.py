@@ -13,6 +13,7 @@ from app.utils.google_ai_api import configure_api, generate_text, gen_cq_gemini,
 allowed_origins = [
     "http://localhost:4200",
     "https://chris-thillet-angular-web-app-ca1b7f946c88.herokuapp.com"
+    "https://chris-thillet-angular-web-app-ca1b7f946c88.herokuapp.com/generate"
 ]
 
 CORS(app, resources={r"/*": {"origins": allowed_origins}})
@@ -63,25 +64,4 @@ def save_response():
         return jsonify({'error': 'Failed to save the last response in database.'}), 500
 
 
-@app.route('/text-generate', methods=['GET', 'POST', 'PUT', 'OPTIONS'])
-@cross_origin(headers=['Content-Type'])
-def example_route():
-    if request.method == 'OPTIONS':
-        # Properly handle preflight requests
-        response = app.make_default_options_response()
-        headers = response.headers
-
-        headers['Access-Control-Allow-Origin'] = '*'
-        headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
-        headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
-        return response
-
-    configure_api()
-    prompt = "What is the meaning of life?"
-    result = generate_text(prompt)
-
-    markdown_result = to_markdown(result)
-    display(markdown_result)
-    print('GEMINI Result: ', result)
-    return jsonify(result)
 
