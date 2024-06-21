@@ -5,10 +5,8 @@ import google.generativeai as genai
 from IPython.display import display, Markdown
 import time
 
+
 def configure_api(api_key=None):
-    # api_key = os.getenv('GOOGLE_API_KEY')
-    # load_dotenv()  # Load environment variables from .env file
-    # print("GOOGLE_API_KEY:", os.getenv('GOOGLE_API_KEY'))
     if not api_key:
         api_key = os.getenv('GOOGLE_API_KEY')
     if not api_key:

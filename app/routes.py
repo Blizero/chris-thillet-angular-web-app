@@ -11,9 +11,6 @@ from app.schemes import ResponseSchema
 from app.utils.google_ai_api import configure_api, generate_text, gen_cq_gemini, to_markdown
 
 
-API_URL = "https://api.agify.io/"
-API_URL_CAT_FACTS = "https://catfact.ninja/fact"
-
 CORS(app, resources={r"/*": {"origins": "http://localhost:4200"}})
 
 

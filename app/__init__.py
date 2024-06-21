@@ -1,17 +1,30 @@
 # app/__init__.py
 import os
-
-from flask import Flask
+from flask import Flask, send_from_directory
 from flask_cors import CORS
 from dotenv import load_dotenv
 from pymongo import MongoClient
 
 
 def create_app():
-    app = Flask(__name__, static_folder='dist/your-angular-app')
+    app = Flask(__name__, static_folder='../dist/browser')
     load_dotenv()  # Load environment variables from .env file
     # print("GOOGLE_API_KEY:", os.getenv('GOOGLE_API_KEY'))
     app.config.from_object('config.Config')
+
+    @app.route('/')
+    def index():
+        return send_from_directory(app.static_folder, 'index.html')
+
+    @app.route('/<path:path>', methods=['GET'])
+    def serve_angular(path=None):
+        if path is not None and os.path.exists(os.path.join(app.static_folder, path)):
+            return send_from_directory(app.static_folder, path)
+        return send_from_directory(app.static_folder, 'index.html')
+
+    @app.route('/<path:path>')
+    def static_proxy(path):
+        return send_from_directory(app.static_folder, path)
 
     # Set up a cloud MongoDB client
     client = MongoClient(app.config['MONGO_URI_GOOGLE_CLOUD'])

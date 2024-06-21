@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpEventType, HttpHeaders} from "@angular/common/http";
-import {map, Observable, Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
+import {environment} from "../environment";
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,10 @@ export class DataRequestService {
     private http: HttpClient,
   ) { }
 
-  private google_gemini_generate = 'http://127.0.0.1:5000/generate';
-  private google_gemini_save_response = 'http://127.0.0.1:5000/save-response';
-  private google_gemini_responses = 'http://127.0.0.1:5000/responses';
-
+  private baseUrl = environment.apiUrl;
+  private google_gemini_generate = `${this.baseUrl}/generate`;
+  private google_gemini_save_response = `${this.baseUrl}/save-response`;
+  private google_gemini_responses = `${this.baseUrl}/responses`;
 
   geminiGenerate(prompt: any): Observable<any> {
     const headers = new HttpHeaders({
