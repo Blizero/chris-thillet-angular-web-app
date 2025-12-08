@@ -1,13 +1,34 @@
 <main class="main">
   <div class="content">
     <div class="divider" role="separator" aria-label="Divider"></div>
-    <div class="left-side">
-      <h1>YoRHa No.2 Type B</h1>
-      <div class="info">
-        YoRha 2B powered by Google Gemini, accessible to everyone without needing an account.
-        This chatbot leverages advanced natural language processing to deliver intelligent, accurate, and
-        context-aware responses to user queries.
-      </div>
+    <span class="left-side">
+      <h1>3d Visualization</h1>
+<div style="display: flex; gap: 20px;">
+
+
+  <div class="info" style="flex: 1;">
+    The goal of this project is to build a supervised machine learning model that predicts a satellite's mission type
+    (e.g., Earth Observation, Communications, Navigation, Science/Technology, Military/Other) from its orbital characteristics and basic spacecraft metadata.
+
+    Given a set of satellites with known missions and orbital parameters (e.g., perigee, apogee, eccentricity, inclination, mean motion, launch year, operator country), I frame this as a **multiclass classification** problem. The model learns relationships
+    between orbital regimes and mission roles and can then be used to infer mission type for new or unlabeled satellites.
+  </div>
+
+
+  <div style="flex: 1;">
+    <div *ngIf="prediction">
+      <h3>Predicted Mission Type: <span style="font-size: 32px; color: #35ffbe"> {{ prediction.predicted_mission_type }}</span></h3>
+
+      <ul>
+        <li *ngFor="let cls of prediction.target_classes">
+          {{ cls }}: {{ (prediction.probabilities[cls] * 100) | number:'1.1-1' }}%
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
       <ul>
         <div style="margin-left: -20px; min-height: 50vh; max-height: 45vh">
           @if (responsesFound) {
@@ -31,98 +52,70 @@
             }
           } @else {
             <div class="response-container">
-              <p style="font-size: 18.5px">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣯⣾⣿⡿⢟⣿⠛⠉⠩⠁⠀⠀⡟⠁⠀⣀⠀⠀⠈⠙⠿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠀⠀⠀⠀⠀⠀⠈⠢⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣾⡿⠟⠁⣐⡮⠁⠀⡐⠀⠀⠀⠀⢰⣅⠈⠀⠒⠄⡀⠀⠀⠀⠙⠿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠐⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣰⡿⠋⠀⠀⠀⡬⠁⠀⡐⠀⠀⠀⠀⠀⠀⠟⢂⠀⠀⠀⠈⠂⡀⠀⠀⠀⠈⠙⢿⣿⣻⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠈⢳⡀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣲⠏⠀⠀⠀⠠⡙⠀⠀⢀⠁⠀⠀⠀⠀⠀⠀⠐⡈⠑⡀⠀⠀⠀⠈⠢⡀⠀⠀⠀⠀⠙⣿⣿⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⢗⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠬⠁⠀⢀⠈⠀⢠⠁⠀⠀⡈⠀⠀⠀⠀⠀⠀⠀⠀⠐⡀⠈⢄⠀⠀⠀⠀⠀⢄⠀⠀⠀⠀⠈⠻⣿⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠈⠦⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⡼⠁⠀⠀⠂⠀⠀⡄⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠄⠈⢂⠀⠀⠀⠀⠀⢂⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣗⡀⠀⠀⠀⠀⠀⠈⣇⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⣨⠁⠀⠀⠄⠀⠀⢀⠀⠀⠀⢰⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢂⠀⠀⠀⠀⠀⢂⠀⠀⠀⠀⠀⠀⢻⣿⣿⣿⡰⠀⠀⠀⠀⠀⠀⢩⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⢠⡇⠀⠀⡘⠀⠀⠀⢸⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⣣⠀⠀⠀⠀⠀⠀⠀⠀⢆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣿⣿⡇⢃⠀⠀⠀⠀⠀⠸⢆⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⣨⠀⠀⢀⠁⠀⠀⠀⠀⠀⠀⠀⣼⠀⠀⠀⠀⠀⠀⢁⢀⠀⠀⠀⠀⠀⠀⠀⠈⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣿⡇⠋⡀⠀⠀⠀⠀⠀⣏⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⢠⡇⠀⠀⡈⠀⠀⠀⠀⠀⠀⠰⢰⣿⡆⠀⠀⠀⠀⠀⠀⠄⢂⠀⠐⡀⠀⠀⠀⠀⠈⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣿⠈⢡⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⢨⠀⠀⢀⠁⠀⠀⠀⠀⢀⠀⠆⣿⣿⣧⠀⠠⠀⠐⠀⠀⠘⡀⠠⠀⠐⣀⠀⠀⠀⠀⠘⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣿⠀⠈⡄⠀⠀⠀⠀⠘⠆⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⣿⠀⠀⠘⠀⠀⠀⠀⠀⠸⠰⢸⣿⣿⣿⣆⠀⢂⠀⠀⠀⠀⠐⡀⠐⠀⠐⠑⠀⠀⠈⠄⠐⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⠀⠀⢁⠀⠀⠀⠀⠀⡆⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⡊⠀⠀⡀⠀⠀⠀⠀⠀⢐⢳⣾⣿⣿⣿⣿⡌⠌⣆⠀⠀⠀⠀⠐⠀⠈⠂⠈⢀⠢⡀⠀⢂⢡⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⠀⠀⠘⠀⠀⠀⠀⠀⠣⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⡅⠀⠀⡇⠀⡀⠀⠀⠀⢰⣧⣿⣿⣿⣿⣿⣿⣄⠚⢆⠀⠀⠀⠀⠈⢄⠀⠑⠀⠁⡀⠀⠀⠂⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⡆⠀⠀⡆⡆⡔⠄⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⣿⠀⠃⢸⢀⡇⠀⠀⠠⠈⣻⣿⣿⣿⣿⣿⣿⣿⣦⠙⡧⡀⠀⠀⠀⠀⠀⡀⠀⠀⠈⠀⡀⢀⢲⠀⠀⠀⠀⠀⠀⠀⠀⠀⠄⢸⠆⠀⠀⡇⢰⠀⢳⠁⢷⠗⡀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⢹⢰⠀⠈⣸⢰⠀⠀⠀⠒⡹⣿⣿⣿⣿⣿⣿⢿⣿⣷⣜⣮⣦⠀⠀⠀⠀⠈⠊⠀⠀⠀⢄⠀⠀⡄⠀⠀⠀⠀⠀⠀⠀⠀⢤⢸⠀⠀⠀⡇⢸⢰⣾⢠⠆⠁⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠸⢸⠆⠀⢡⢀⠃⠀⠀⢀⠱⡹⣿⣿⣿⣿⣯⣿⣼⣹⣻⣮⣿⣿⡦⡀⠐⠄⠀⠈⠢⡢⢀⠀⠠⡣⡀⠀⠀⠀⠀⠀⠀⠀⡿⢸⠀⠀⠀⡇⠸⢘⠙⣾⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⢸⣾⣯⣶⠀⢸⠎⠄⡀⠈⡷⣼⣌⢻⣿⣿⣿⠿⢻⠩⠁⠀⠈⠑⢖⠠⠔⢄⠀⢌⠐⠨⠢⠁⠣⠂⠰⢠⣄⠀⠀⠀⠀⢠⡙⡈⠀⠀⠀⣌⢀⢸⠀⠏⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⢹⣁⠱⡇⢸⢰⡘⢇⢄⢡⠈⢿⣷⠟⠋⠀⠀⠀⢅⠀⠀⠀⠀⠀⠁⠀⠀⠈⠂⡝⡰⢠⠄⣐⡆⠀⢀⠀⠈⠀⠂⢠⢲⢡⠃⠀⠀⣰⠂⣸⡆⠘⠃⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠙⠦⢩⣆⢼⢡⠈⠂⠱⢕⠌⡅⠀⢀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠂⠁⠊⠔⣣⣀⣀⣀⠸⠀⣠⢏⡲⡉⠀⠠⢠⡏⢠⣗⠁⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢧⢯⣛⣥⠀⠀⠂⠈⠩⢊⠀⠀⠀⠀⠀⢀⡀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢁⣵⠉⠁⠀⠄⡆⡊⣜⡚⡔⠀⢠⡵⣿⢠⠯⠂⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢊⡎⠙⢓⠄⠀⢆⠀⠑⠱⢄⠀⠀⠀⠁⢃⡀⠀⠉⠀⠀⠀⠀⠀⠀⢀⢐⠚⠹⠀⡀⣨⢰⡀⢨⡣⡞⣠⡰⠉⢀⣭⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢧⠤⠢⠽⠦⢈⠑⢦⢀⠳⡅⡠⡀⠀⠀⠀⠀⠀⠁⠀⠀⠀⡠⣐⠁⡂⢀⢃⣔⣔⣇⢛⢣⡜⣷⠮⡧⠃⠈⢐⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢣⡆⠀⢠⠈⠑⠊⣾⣺⢳⣿⠙⢲⣄⡀⠀⢀⣀⣤⡔⢻⡔⠃⠁⣀⡔⢹⡏⢹⣿⠁⠙⣷⣟⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⡄⣴⠾⠟⣴⢠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠀⠟⠃⣿⣿⡅⠘⠈⠉⠉⠁⠀⠀⠀⠃⠛⠃⢸⣷⣼⡏⠀⠀⠈⠻⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⣠⠤⢓⣵⣾⣿⣷⣄⠈⢘⠲⣠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣿⣿⣷⣶⣶⣶⣤⣤⣤⣤⣶⣶⣶⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⢀⡤⠓⠁⣰⡿⣽⢾⣟⣿⣿⣧⡄⡘⠢⡟⣧⣠⡀⠀⠀⢀⡀⣀⣴⣁⠟⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣅⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠟⠁⢀⣾⢯⣟⣽⣻⣞⡿⣿⣿⣿⣮⣳⣜⣻⣿⣷⠒⠊⠉⠁⣠⣴⣶⣦⣤⣙⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣗⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⢤⣤⣠⠀⠀⠀⠀⠀
-                ⠀⡠⢟⣞⣯⣞⣷⣻⣾⣿⣿⣿⣿⣿⣿⣾⣷⣿⢿⣵⣤⣶⣿⣿⡿⣿⣿⣿⣿⣾⣽⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡴⣠⠀⢀⣠⠠⠒⠒⠒⠒⠋⣰⣿⡿⣿⣷⣴⠀⠀⠀
-                ⢀⠝⣸⣿⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢯⣟⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⡐⣉⠯⣄⠀⠀⠀⠀⠀⣴⣿⢯⣿⢷⣿⣿⣷⡂⠀
-                ⢈⢠⣿⣽⣻⣿⢿⣯⣿⣽⣯⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣯⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣵⣫⡽⣷⠀⢀⣠⣾⡿⣯⣿⣾⣿⣿⣟⣿⣿⡄
-                ⠀⣼⣷⣻⣿⣾⣿⣯⣿⣯⣿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣿⡽⣧⠛⠿⣿⣽⣿⣿⣿⣿⣿⣿⣿⣿⣿
-                ⢠⣿⡽⣟⣷⣿⣿⣿⣷⣿⡿⣿⣯⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣯⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣬⣟⣯⣿⣿⣿⣿⣿⣿⣿⣿</p>
+              <p style="font-size: 18.5px"></p>⠀
+⠀⠀⠀⠀
+   <!--                ADD: Three JS -->
+              <div class="orbit-viewer-container" #rendererContainer></div>
+
             </div>
           }
         </div>
 
       </ul>
-    </div>
+    </span>
     <div class="input-box bottom-absolute">
         <span>
           <form [formGroup]="aiGenerationForm">
         <mat-form-field class="message-input-box-size">
-          <label style="font-size: 15px; color: #a2a1a1; margin-left: 5px; margin-bottom: 7px;">Message YoRHa No.2 Type B</label>
+          <label style="font-size: 15px; color: #a2a1a1; margin-left: 5px; margin-bottom: 7px;">Search for a satellite</label>
           <textarea style="margin-left: 5px;" matInput formControlName="prompt"></textarea>
         </mat-form-field>
             </form>
           </span>
-        <form style="min-height: 70px;" [formGroup]="aiGenerationForm">
-          @if (!usernameEntered) {
-            <span style="float: left;">
+      <form style="min-height: 70px;" [formGroup]="aiGenerationForm">
+        @if (!usernameEntered) {
+          <span style="float: left;">
                     <mat-form-field appearance="outline">
                       <mat-label>Name</mat-label>
                       <input style="position: absolute; max-height: 10px;" matInput placeholder="Enter your name"
                              formControlName="username">
                     </mat-form-field>
-              @if (f['username'].errors?.['required']) {
-                <p style="position: absolute; font-size: 10px; color: #f66262; margin-left: 10px; margin-top: -20px;">Name is required</p>
-              }
-              @if (f['username'].errors?.['minlength']) {
-                <p style="position: absolute; font-size: 10px; color: #f66262; margin-left: 10px; margin-top: -20px;">Name must be at least 3 characters long</p>
-              }
-              @if (f['username'].errors?.['maxlength']) {
-                <p style="position: absolute; font-size: 10px; color: #f66262; margin-left: 10px; margin-top: -20px;">Name cannot be more than 20 characters long</p>
-              }
-                     </span>
-          }
-
-          @if (lastResponse.length > 0 && allowAIGeneration) {
-            <span style="float: left;"><button mat-raised-button
-                                                                       [disabled]="lastResponse.length === 0"
-                                                                       style="color: #eeeeee; background: #47bbcc;  margin-top: 20px; width: 190px;"
-                                                                       (click)="saveLastResponse()">Save Response</button></span>
-          }
-
-          @if (aiGenerationForm.invalid || !allowAIGeneration) {
-            @if (!allowAIGeneration;) {
-              <span style="float: right; padding-right: 5px;">Generating....</span> <mat-spinner diameter="23" strokeWidth="5" style="margin-left: 8px; float: right"></mat-spinner>
-            } @else {
-              <span style="margin-left: 15px; float: right; margin-top: 20px;"><button mat-raised-button
-                                                                                       [disabled]="!aiGenerationForm.invalid"
-                                                                                       style="color: #aba7a7; background: #495153; width: 190px;">Generate Response</button></span>
+            @if (f['username'].errors?.['required']) {
+              <p style="position: absolute; font-size: 10px; color: #f66262; margin-left: 10px; margin-top: -20px;">Name is required</p>
             }
+            @if (f['username'].errors?.['minlength']) {
+              <p style="position: absolute; font-size: 10px; color: #f66262; margin-left: 10px; margin-top: -20px;">Name must be at least 3 characters long</p>
+            }
+            @if (f['username'].errors?.['maxlength']) {
+              <p style="position: absolute; font-size: 10px; color: #f66262; margin-left: 10px; margin-top: -20px;">Name cannot be more than 20 characters long</p>
+            }
+                     </span>
+        }
+
+        @if (lastResponse.length > 0 && allowAIGeneration) {
+          <span style="float: left;"><button mat-raised-button
+                                             [disabled]="lastResponse.length === 0"
+                                             style="color: #eeeeee; background: #47bbcc;  margin-top: 20px; width: 190px;"
+                                             (click)="saveLastResponse()">Save Response</button></span>
+        }
+
+        @if (aiGenerationForm.invalid || !allowAIGeneration) {
+          @if (!allowAIGeneration;) {
+            <span style="float: right; padding-right: 5px;">Generating....</span> <mat-spinner diameter="23" strokeWidth="5" style="margin-left: 8px; float: right"></mat-spinner>
           } @else {
             <span style="margin-left: 15px; float: right; margin-top: 20px;"><button mat-raised-button
-                                                                                     [disabled]="!allowAIGeneration"
-                                                                                     style="color: #eeeeee; background: #ff9824; width: 190px;"
-                                                                                     (click)="geminiGenerate()">Generate Response</button></span>
+                                                                                     [disabled]="!aiGenerationForm.invalid"
+                                                                                     style="color: #aba7a7; background: #495153; width: 190px;">Generate Response</button></span>
           }
-        </form>
-      </div>
+        } @else {
+          <span style="margin-left: 15px; float: right; margin-top: 20px;"><button mat-raised-button
+                                                                                   [disabled]="!allowAIGeneration"
+                                                                                   style="color: #eeeeee; background: #ff9824; width: 190px;"
+                                                                                   (click)="geminiGenerate()">Generate Response</button></span>
+        }
+      </form>
     </div>
+  </div>
 </main>
 
 

@@ -26,11 +26,18 @@ export class GeminiAiActivityComponent implements OnInit {
     "ag-theme-balham-dark";
 
   columnDefs = [
-    { field: '_id', width: 270, headerName: 'ID', hide: true },
-    { field: 'time', width: 170, headerName: 'Time'},
-    { field: 'username', width: 170,  headerName: 'Username' },
-    { field: 'prompt', width: 470, headerName: 'Prompt' },
-    { field: 'response', width: 570, headerName: 'Response' }
+    { field: 'id', headerName: 'ID', width: 260 },
+
+    { field: 'class_of_orbit', headerName: 'Orbit Class', width: 150 },
+
+    { field: 'perigee_km', headerName: 'Perigee (km)', width: 150 },
+    { field: 'apogee_km', headerName: 'Apogee (km)', width: 150 },
+
+    { field: 'inclination_deg', headerName: 'Inclination (°)', width: 160 },
+    { field: 'eccentricity', headerName: 'Eccentricity', width: 150 },
+
+    { field: 'period_min', headerName: 'Period (min)', width: 150 },
+    { field: 'longitude_geo_deg', headerName: 'Longitude GEO (°)', width: 180 }
   ];
 
   rowData: any[] = [];

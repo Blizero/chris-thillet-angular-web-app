@@ -3,7 +3,7 @@ const PROXY_CONFIG = [
     context: [
       "/uaa",
     ],
-    target: "http://localhost:7000",
+    target: "http://localhost:5000",
     secure: false,
     timeout: 1200000
   }

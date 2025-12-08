@@ -4,6 +4,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
+Feel free to use Conda or Venv for the environment creation
+
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 ## Code scaffolding
@@ -48,9 +50,13 @@ Before running the application, make sure you have the following installed:
 - MongoDB
 - pymongo (Python MongoDB driver)
 
-Create the virtual environment and source the activation script:  python3 -m venv venv && source venv/bin/activate
+Create the virtual environment and source the activation script:  
+python3 -m venv venv && source venv/bin/activate
 
-Install Flask: pip install Flask
+Install Flask:
+
+pip install Flask
+pip install -r requirements.txt
 
 You can install the required Python packages using pip:
 
@@ -77,7 +83,7 @@ Start the Flask application:
 python app.py
 ```
 
-The application should now be running on http://127.0.0.1:5000/. You can access it in your web browser.
+The application should now be running on http://127.0.0.1:5000/. You can access it in your web browser. (If on Macbook, airplay might be running on port 5000, turn off or change port assignment)
 
 Usage
 YoRha 2B powered by Google Gemini, accessible to everyone without needing an account.
@@ -93,4 +99,4 @@ Acknowledgments
 This project was created as an educational resource for connecting Flask with MongoDB.
 Feel free to modify this README to include any additional information specific to your project. Enjoy using your Flask application with MongoDB!
 
-### Application Created by Chris Thillet (Blizero)- June 2024 
+### Application Created by Chris Thillet (Blizero)- December 2025
