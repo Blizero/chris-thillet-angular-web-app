@@ -23,6 +23,7 @@ class SafeFloat(fields.Field):
 
 class SatelliteSchema(Schema):
     id = fields.Str(attribute="_id")
+    name = fields.Str(attribute="Name_of_Satellite,_Alternate_Names")
 
     # identity fields...
 

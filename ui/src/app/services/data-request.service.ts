@@ -1,6 +1,6 @@
 import { Injectable, isDevMode } from '@angular/core';
 import {HttpClient, HttpEventType, HttpHeaders} from "@angular/common/http";
-import {Observable, Subscription} from "rxjs";
+import {Observable, Subject, Subscription} from "rxjs";
 import {environment} from "../environment.prod";
 
 @Injectable({
@@ -67,16 +67,6 @@ export class DataRequestService {
     return this.http.get<any>(this.google_gemini_responses, { headers });
   }
 
-  // extraMLPredictActivityData(): Observable<any> {
-  //   const headers = new HttpHeaders({
-  //     'Content-Type': 'application/json'
-  //   });
-  //
-  //   this.assignEnvironmentUrl();
-  //
-  //   return this.http.post<any>(this.google_gemini_ml_predict, { headers });
-  // }
-
 
   extraMLPredictActivityData(request: any): Observable<any> {
     const headers = new HttpHeaders({
@@ -107,3 +97,24 @@ export class DataRequestService {
   }
 
 }
+
+
+@Injectable({providedIn: 'root'})
+export class TableDataTransferObservable {
+  private TableDataTransferObservable$ = new Subject();
+  tableDataTransferObservable$ = this.TableDataTransferObservable$.asObservable();
+  transferTableData(data: any) {
+    this.TableDataTransferObservable$.next(data);
+  }
+}
+
+
+@Injectable({providedIn: 'root'})
+export class TableDataRefreshObservable {
+  private TableDataRefreshObservable$ = new Subject();
+  tableDataRefreshObservable$ = this.TableDataRefreshObservable$.asObservable();
+  refreshTableData(data: any) {
+    this.TableDataRefreshObservable$.next(data);
+  }
+}
+

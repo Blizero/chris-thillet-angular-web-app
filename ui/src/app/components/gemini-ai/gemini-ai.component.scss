@@ -4,7 +4,6 @@ html *, body, h1, ul, li, button, div, span {
 }
 
 h1 {
-  border-radius: 10px;
   background: #9fa3a1;
   padding-left: 15px;
   color: rgba(255, 255, 255, 0.75);
@@ -60,27 +59,62 @@ button.row {
 div.input-box {
   border-radius: 10px;
   background: rgb(138 138 138 / 77%);
-  padding: 20px;
+  //padding: 20px;
   color: rgba(234, 234, 234, 0.75);
   font-weight: bold;
   margin-bottom: 20px;
-  min-height: 10vh;
+  min-height: 310px;
 }
 
 div.input-box span {
   font-weight: normal;
 }
 
-.response-container {
+.table-container {
   color: white;
-  padding-top: 7px;
+  padding-top: -20px;
+  padding-left: 20px;
+  padding-right: 15px;
+  padding-bottom: 10px;
+  margin-bottom: -30px;
   border-radius: 0;
   text-indent: 0;
-  padding-left: 10px;
   background: #3a3c3d;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  max-height: 47vh;
-  overflow-y: auto;
+  height: 48vh;
+  overflow: hidden;
+}
+
+.response-container {
+  color: white;
+  padding-top: -20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  border-radius: 10px;
+  margin-bottom: -30px;
+  margin-right: 20px;
+  text-indent: 0;
+  background: #3a3c3d;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow-y: scroll;
+  height: 320px;
+}
+
+.selection-response-container {
+  color: white;
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  border-radius: 10px;
+  margin-bottom: -30px;
+  margin-right: 20px;
+  text-indent: 0;
+  background: #3a3c3d;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  height: 260px;
 }
 
 .example-form {
@@ -91,7 +125,8 @@ div.input-box span {
 
 .message-input-box-size {
   width: 100%;
-  max-height: 300px;
+  min-height: 200px;
+  max-height: 230px;
 }
 
 .username-input-container {
@@ -110,7 +145,7 @@ input {
 
 
 .bottom-absolute {
-  position: sticky;
+  //position: sticky;
   bottom: 0;
   background-color: #333;
   color: white;
@@ -120,10 +155,55 @@ input {
 
 
 .orbit-viewer-container {
-  width: 100%;
-  height: 100%;
-  min-height: 500px;
+  width: 50%;
+  //margin-top: -40px;
+  margin-left: -5px;
+
+  //min-height: 500px;
   display: block;
   position: relative;
   overflow: hidden;
 }
+
+
+.llm-context-viewer-container {
+  width: 50%;
+  //margin-top: -40px;
+  margin-left: -5px;
+  //min-height: 500px;
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.mission-type-observation {
+  color: #49f59f;
+}
+
+.mission-type-navigation {
+  color: #f39a24;
+}
+
+.mission-type-communications {
+  color: #f3da60;
+}
+
+.mission-type-research {
+  color: #e8198e;
+}
+
+.mission-type-recon {
+  color: #90aeff;
+}
+
+.mission-type-military {
+  color: #6dff4d;
+}
+
+
+.mission-type-science {
+  color: #f1b28b;
+}
+
+

@@ -1,16 +1,20 @@
-<div>
+
+<h1 style="color: #49f59f; margin-top: -10px;">UCS Satellite Database
+  <div>
   <button
     matTooltip="Reload new data"
     matTooltipPosition="right"
-    style="color: #eeeeee; border: solid 0; background: #4fc58b; width: 37px;" (click)="fetchData()">
+    style=" position: absolute; margin-top: -45px; right: 40px; color: #eeeeee; border: solid 0; background: rgba(0,0,0,0); width: 37px;" (click)="fetchData()">
     <mat-icon style="
     cursor: pointer;
     margin-left: -6px;
     font-size: 30px;
+    color: #70ffae;
     font-weight: 400;">refresh
     </mat-icon>
   </button>
 </div>
+</h1>
 
 <ag-grid-angular
   style="width: 100%; height: 700px"
@@ -18,6 +22,8 @@
   [rowData]="rowData"
   [class]="themeClass"
   [columnDefs]="columnDefs"
+  [rowSelection]="rowSelection"
+  (selectionChanged)="onSelectionChanged()"
   (gridReady)="onGridReady($event)"
 ></ag-grid-angular>
 
