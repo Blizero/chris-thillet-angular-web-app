@@ -570,7 +570,7 @@ export class GeminiAiComponent implements OnInit, AfterViewInit, OnDestroy {
 
         if (!response.content.includes("No satellite found, please search for another satellite") && response.content) {
           if (!response.content.includes("Only one satellite can be searched at a time")) {
-
+            this._tableDataRefreshObservable.refreshTableData(null);
             const parsed = this.parseFencedJson(response.content);
             console.log('Parsed satellite object:', parsed);
 
@@ -588,8 +588,10 @@ export class GeminiAiComponent implements OnInit, AfterViewInit, OnDestroy {
               class_of_orbit: parsed.class_of_orbit,
             };
 
-            this._tableDataRefreshObservable.refreshTableData(null);
-            this.loadSatellites(satForViz);
+            setTimeout(() => {
+              this.loadSatellites(satForViz);
+            }, 500);
+
 
           }
         }
