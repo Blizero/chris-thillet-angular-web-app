@@ -106,7 +106,6 @@ export class GeminiAiActivityComponent implements OnInit {
 
     // @ts-ignore
     const selectedRows: any = this.gridApi.getSelectedRows();
-    console.log(' selected row data ', selectedRows);
 
     if (selectedRows.length > 0) {
     this._tableDataTransferObservable.transferTableData(selectedRows[0])
