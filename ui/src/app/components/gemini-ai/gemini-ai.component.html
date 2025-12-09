@@ -1,128 +1,160 @@
 <main class="main">
   <div class="content">
     <div class="divider" role="separator" aria-label="Divider"></div>
-    <div class="left-side">
-      <h1>YoRHa No.2 Type B</h1>
-      <div class="info">
-        YoRha 2B powered by Google Gemini, accessible to everyone without needing an account.
-        This chatbot leverages advanced natural language processing to deliver intelligent, accurate, and
-        context-aware responses to user queries.
-      </div>
+    <span class="left-side">
+   <h1 style="color: #fff2ab; margin-top: -10px; margin-left: -5px">3d Visualization & Prediction</h1>
+<div style="display: flex; gap: 20px; height: 280px">
+
+    <div style="flex: 1; " class="orbit-viewer-container" #rendererContainer></div>
+
+ <div style="flex: 1;">
+    <div *ngIf="prediction" class="selection-response-container">
+
+
+      <h5>Predicted Mission Type: <span
+        [class.mission-type-observation]="prediction.predicted_mission_type === 'Earth Observation'"
+        [class.mission-type-navigation]="prediction.predicted_mission_type === 'Navigation'"
+        [class.mission-type-communications]="prediction.predicted_mission_type === 'Communications'"
+        style="font-size: 25px;"> {{ prediction.predicted_mission_type }}</span></h5>
+
+      <ul>
+        <li *ngFor="let cls of prediction.target_classes">
+          {{ cls }}: {{ (prediction.probabilities[cls] * 100) | number:'1.1-1' }}%
+        </li>
+      </ul>
+
+    </div>
+
+     <div *ngIf="!prediction">
+             <div class="selection-response-container">
+               <p style="padding-left: 10px; padding-top: 10px; color: #ffff78"> No row selected, select a row on the table to predict data</p>
+               <p style="padding: 10px;font-size: 13px;">
+                 Given a set of satellites with known missions and orbital parameters (e.g., perigee, apogee, eccentricity, inclination, mean motion, launch year, operator country),
+  I frame this as a multiclass classification problem. The model learns relationships
+  between orbital regimes and mission roles and can then be used to infer mission type for new or unlabeled satellites.</p>
+
+               </div>
+       </div>
+
+  </div>
+</div>
+
+
       <ul>
         <div style="margin-left: -20px; min-height: 50vh; max-height: 45vh">
-          @if (responsesFound) {
-            @for (response of responses; track response.prompt) {
-              <div class="response-container">
-                <li style="color: white; padding-top: 5px;"><span
-                  style="color: #9ed8ff; font-weight: bold; margin-right: 3px;">{{ userName }}:</span>
-                  <span style="border-radius: 3px; padding: 0;">{{ response.prompt }}
-                          </span>
-                  <br>
-                <li style="color: white; padding-top: 5px;"><span
-                  style="color: #b8f8e0; font-weight: bold; margin-right: 3px;">2B:</span>
-                  <span style="background: rgba(255,255,255,0); border-radius: 3px; padding: 5; max-height: 350px;">
-                             <markdown
-                               [data]="response.response"
-                               [disableSanitizer]="true">
-                              </markdown>
-                          </span>
+
+            <div class="table-container">
+
+⠀⠀⠀⠀        <div style="display: flex; height: 420px;">
+
+
+              <div style="flex: 1;">
+   <gemini-ai-activity></gemini-ai-activity>
 
               </div>
-            }
-          } @else {
-            <div class="response-container">
-              <p style="font-size: 18.5px">⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣯⣾⣿⡿⢟⣿⠛⠉⠩⠁⠀⠀⡟⠁⠀⣀⠀⠀⠈⠙⠿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠀⠀⠀⠀⠀⠀⠈⠢⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣾⡿⠟⠁⣐⡮⠁⠀⡐⠀⠀⠀⠀⢰⣅⠈⠀⠒⠄⡀⠀⠀⠀⠙⠿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠐⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣰⡿⠋⠀⠀⠀⡬⠁⠀⡐⠀⠀⠀⠀⠀⠀⠟⢂⠀⠀⠀⠈⠂⡀⠀⠀⠀⠈⠙⢿⣿⣻⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠈⢳⡀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣲⠏⠀⠀⠀⠠⡙⠀⠀⢀⠁⠀⠀⠀⠀⠀⠀⠐⡈⠑⡀⠀⠀⠀⠈⠢⡀⠀⠀⠀⠀⠙⣿⣿⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⢗⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠬⠁⠀⢀⠈⠀⢠⠁⠀⠀⡈⠀⠀⠀⠀⠀⠀⠀⠀⠐⡀⠈⢄⠀⠀⠀⠀⠀⢄⠀⠀⠀⠀⠈⠻⣿⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠈⠦⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⡼⠁⠀⠀⠂⠀⠀⡄⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠄⠈⢂⠀⠀⠀⠀⠀⢂⠀⠀⠀⠀⠀⠈⢿⣿⣿⣿⣗⡀⠀⠀⠀⠀⠀⠈⣇⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⣨⠁⠀⠀⠄⠀⠀⢀⠀⠀⠀⢰⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢂⠀⠀⠀⠀⠀⢂⠀⠀⠀⠀⠀⠀⢻⣿⣿⣿⡰⠀⠀⠀⠀⠀⠀⢩⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⢠⡇⠀⠀⡘⠀⠀⠀⢸⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⣣⠀⠀⠀⠀⠀⠀⠀⠀⢆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣿⣿⡇⢃⠀⠀⠀⠀⠀⠸⢆⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⣨⠀⠀⢀⠁⠀⠀⠀⠀⠀⠀⠀⣼⠀⠀⠀⠀⠀⠀⢁⢀⠀⠀⠀⠀⠀⠀⠀⠈⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣿⡇⠋⡀⠀⠀⠀⠀⠀⣏⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⢠⡇⠀⠀⡈⠀⠀⠀⠀⠀⠀⠰⢰⣿⡆⠀⠀⠀⠀⠀⠀⠄⢂⠀⠐⡀⠀⠀⠀⠀⠈⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣿⠈⢡⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⢨⠀⠀⢀⠁⠀⠀⠀⠀⢀⠀⠆⣿⣿⣧⠀⠠⠀⠐⠀⠀⠘⡀⠠⠀⠐⣀⠀⠀⠀⠀⠘⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣿⠀⠈⡄⠀⠀⠀⠀⠘⠆⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⣿⠀⠀⠘⠀⠀⠀⠀⠀⠸⠰⢸⣿⣿⣿⣆⠀⢂⠀⠀⠀⠀⠐⡀⠐⠀⠐⠑⠀⠀⠈⠄⠐⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⠀⠀⢁⠀⠀⠀⠀⠀⡆⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⡊⠀⠀⡀⠀⠀⠀⠀⠀⢐⢳⣾⣿⣿⣿⣿⡌⠌⣆⠀⠀⠀⠀⠐⠀⠈⠂⠈⢀⠢⡀⠀⢂⢡⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⠀⠀⠘⠀⠀⠀⠀⠀⠣⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⡅⠀⠀⡇⠀⡀⠀⠀⠀⢰⣧⣿⣿⣿⣿⣿⣿⣄⠚⢆⠀⠀⠀⠀⠈⢄⠀⠑⠀⠁⡀⠀⠀⠂⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⡆⠀⠀⡆⡆⡔⠄⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⣿⠀⠃⢸⢀⡇⠀⠀⠠⠈⣻⣿⣿⣿⣿⣿⣿⣿⣦⠙⡧⡀⠀⠀⠀⠀⠀⡀⠀⠀⠈⠀⡀⢀⢲⠀⠀⠀⠀⠀⠀⠀⠀⠀⠄⢸⠆⠀⠀⡇⢰⠀⢳⠁⢷⠗⡀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⢹⢰⠀⠈⣸⢰⠀⠀⠀⠒⡹⣿⣿⣿⣿⣿⣿⢿⣿⣷⣜⣮⣦⠀⠀⠀⠀⠈⠊⠀⠀⠀⢄⠀⠀⡄⠀⠀⠀⠀⠀⠀⠀⠀⢤⢸⠀⠀⠀⡇⢸⢰⣾⢠⠆⠁⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠸⢸⠆⠀⢡⢀⠃⠀⠀⢀⠱⡹⣿⣿⣿⣿⣯⣿⣼⣹⣻⣮⣿⣿⡦⡀⠐⠄⠀⠈⠢⡢⢀⠀⠠⡣⡀⠀⠀⠀⠀⠀⠀⠀⡿⢸⠀⠀⠀⡇⠸⢘⠙⣾⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⢸⣾⣯⣶⠀⢸⠎⠄⡀⠈⡷⣼⣌⢻⣿⣿⣿⠿⢻⠩⠁⠀⠈⠑⢖⠠⠔⢄⠀⢌⠐⠨⠢⠁⠣⠂⠰⢠⣄⠀⠀⠀⠀⢠⡙⡈⠀⠀⠀⣌⢀⢸⠀⠏⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⢹⣁⠱⡇⢸⢰⡘⢇⢄⢡⠈⢿⣷⠟⠋⠀⠀⠀⢅⠀⠀⠀⠀⠀⠁⠀⠀⠈⠂⡝⡰⢠⠄⣐⡆⠀⢀⠀⠈⠀⠂⢠⢲⢡⠃⠀⠀⣰⠂⣸⡆⠘⠃⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠙⠦⢩⣆⢼⢡⠈⠂⠱⢕⠌⡅⠀⢀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠂⠁⠊⠔⣣⣀⣀⣀⠸⠀⣠⢏⡲⡉⠀⠠⢠⡏⢠⣗⠁⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢧⢯⣛⣥⠀⠀⠂⠈⠩⢊⠀⠀⠀⠀⠀⢀⡀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢁⣵⠉⠁⠀⠄⡆⡊⣜⡚⡔⠀⢠⡵⣿⢠⠯⠂⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢊⡎⠙⢓⠄⠀⢆⠀⠑⠱⢄⠀⠀⠀⠁⢃⡀⠀⠉⠀⠀⠀⠀⠀⠀⢀⢐⠚⠹⠀⡀⣨⢰⡀⢨⡣⡞⣠⡰⠉⢀⣭⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢧⠤⠢⠽⠦⢈⠑⢦⢀⠳⡅⡠⡀⠀⠀⠀⠀⠀⠁⠀⠀⠀⡠⣐⠁⡂⢀⢃⣔⣔⣇⢛⢣⡜⣷⠮⡧⠃⠈⢐⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢣⡆⠀⢠⠈⠑⠊⣾⣺⢳⣿⠙⢲⣄⡀⠀⢀⣀⣤⡔⢻⡔⠃⠁⣀⡔⢹⡏⢹⣿⠁⠙⣷⣟⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⡄⣴⠾⠟⣴⢠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠀⠟⠃⣿⣿⡅⠘⠈⠉⠉⠁⠀⠀⠀⠃⠛⠃⢸⣷⣼⡏⠀⠀⠈⠻⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⣠⠤⢓⣵⣾⣿⣷⣄⠈⢘⠲⣠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣿⣿⣷⣶⣶⣶⣤⣤⣤⣤⣶⣶⣶⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⢀⡤⠓⠁⣰⡿⣽⢾⣟⣿⣿⣧⡄⡘⠢⡟⣧⣠⡀⠀⠀⢀⡀⣀⣴⣁⠟⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣅⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠟⠁⢀⣾⢯⣟⣽⣻⣞⡿⣿⣿⣿⣮⣳⣜⣻⣿⣷⠒⠊⠉⠁⣠⣴⣶⣦⣤⣙⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣗⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⢤⣤⣠⠀⠀⠀⠀⠀
-                ⠀⡠⢟⣞⣯⣞⣷⣻⣾⣿⣿⣿⣿⣿⣿⣾⣷⣿⢿⣵⣤⣶⣿⣿⡿⣿⣿⣿⣿⣾⣽⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡴⣠⠀⢀⣠⠠⠒⠒⠒⠒⠋⣰⣿⡿⣿⣷⣴⠀⠀⠀
-                ⢀⠝⣸⣿⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢯⣟⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⡐⣉⠯⣄⠀⠀⠀⠀⠀⣴⣿⢯⣿⢷⣿⣿⣷⡂⠀
-                ⢈⢠⣿⣽⣻⣿⢿⣯⣿⣽⣯⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣯⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣵⣫⡽⣷⠀⢀⣠⣾⡿⣯⣿⣾⣿⣿⣟⣿⣿⡄
-                ⠀⣼⣷⣻⣿⣾⣿⣯⣿⣯⣿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣿⡽⣧⠛⠿⣿⣽⣿⣿⣿⣿⣿⣿⣿⣿⣿
-                ⢠⣿⡽⣟⣷⣿⣿⣿⣷⣿⡿⣿⣯⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣯⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣬⣟⣯⣿⣿⣿⣿⣿⣿⣿⣿</p>
+
             </div>
-          }
+            </div>
         </div>
 
       </ul>
-    </div>
-    <div class="input-box bottom-absolute">
+    </span>
+
+    <h1 style="color: #ffa95f; margin-top: -10px;">AI Search</h1>
+    ⠀
+    <div style="display: flex; height: 420px; margin-top: -30px;">
+
+
+      <div style="flex: 1;">
+
+        <div class="response-container">
+          @if (responsesFound) {
+            @for (response of responses; track response.prompt) {
+              <div>
+                <li style="color: white; padding-top: 5px;"><span
+                  style="color: #9ed8ff; font-weight: bold; margin-right: 3px;">{{ userName }}:</span>
+                  <span style="border-radius: 3px; padding: 0;">{{ response.prompt }}
+                                </span>
+                  <br>
+                <li style="color: white; padding-top: 5px;"><span
+                  style="color: #b8f8e0; font-weight: bold; margin-right: 3px;">Visualizer AI:</span>
+                  <span style="background: rgba(255,255,255,0); border-radius: 3px; padding: 5px; max-height: 350px;">
+                                   <markdown
+                                     [data]="response.response"
+                                     [disableSanitizer]="true">
+                                    </markdown>
+                                </span>
+
+              </div>
+            }
+          } @else if (!responsesFound) {
+            <p style="padding: 20px;"> No searches performed</p>
+          }
+        </div>
+      </div>
+
+
+      <div style="flex: 1;">
+
+        <div class="input-box bottom-absolute">
         <span>
           <form [formGroup]="aiGenerationForm">
         <mat-form-field class="message-input-box-size">
-          <label style="font-size: 15px; color: #a2a1a1; margin-left: 5px; margin-bottom: 7px;">Message YoRHa No.2 Type B</label>
+          <label
+            style="font-size: 15px; color: #a2a1a1; margin-left: 5px; margin-bottom: 7px;">Search for a satellite</label>
           <textarea style="margin-left: 5px;" matInput formControlName="prompt"></textarea>
         </mat-form-field>
             </form>
           </span>
-        <form style="min-height: 70px;" [formGroup]="aiGenerationForm">
-          @if (!usernameEntered) {
-            <span style="float: left;">
+          <form style="min-height: 70px;" [formGroup]="aiGenerationForm">
+            @if (!usernameEntered) {
+              <span style="float: left;">
                     <mat-form-field appearance="outline">
                       <mat-label>Name</mat-label>
                       <input style="position: absolute; max-height: 10px;" matInput placeholder="Enter your name"
                              formControlName="username">
                     </mat-form-field>
-              @if (f['username'].errors?.['required']) {
-                <p style="position: absolute; font-size: 10px; color: #f66262; margin-left: 10px; margin-top: -20px;">Name is required</p>
-              }
-              @if (f['username'].errors?.['minlength']) {
-                <p style="position: absolute; font-size: 10px; color: #f66262; margin-left: 10px; margin-top: -20px;">Name must be at least 3 characters long</p>
-              }
-              @if (f['username'].errors?.['maxlength']) {
-                <p style="position: absolute; font-size: 10px; color: #f66262; margin-left: 10px; margin-top: -20px;">Name cannot be more than 20 characters long</p>
-              }
+                @if (f['username'].errors?.['required']) {
+                  <p style="position: absolute; font-size: 10px; color: #f66262; margin-left: 10px; margin-top: -20px;">Name is required</p>
+                }
+                @if (f['username'].errors?.['minlength']) {
+                  <p style="position: absolute; font-size: 10px; color: #f66262; margin-left: 10px; margin-top: -20px;">Name must be at least 3 characters long</p>
+                }
+                @if (f['username'].errors?.['maxlength']) {
+                  <p style="position: absolute; font-size: 10px; color: #f66262; margin-left: 10px; margin-top: -20px;">Name cannot be more than 20 characters long</p>
+                }
                      </span>
-          }
+            }
 
-          @if (lastResponse.length > 0 && allowAIGeneration) {
-            <span style="float: left;"><button mat-raised-button
-                                                                       [disabled]="lastResponse.length === 0"
-                                                                       style="color: #eeeeee; background: #47bbcc;  margin-top: 20px; width: 190px;"
-                                                                       (click)="saveLastResponse()">Save Response</button></span>
-          }
+            @if (lastResponse.length > 0 && allowAIGeneration) {
+              <span style="float: left;"><button mat-raised-button
+                                                 [disabled]="lastResponse.length === 0"
+                                                 style="color: #eeeeee; background: #47bbcc;  margin-top: 20px; width: 190px;"
+                                                 (click)="saveLastResponse()">Save Response</button></span>
+            }
 
-          @if (aiGenerationForm.invalid || !allowAIGeneration) {
-            @if (!allowAIGeneration;) {
-              <span style="float: right; padding-right: 5px;">Generating....</span> <mat-spinner diameter="23" strokeWidth="5" style="margin-left: 8px; float: right"></mat-spinner>
+            @if (aiGenerationForm.invalid || !allowAIGeneration) {
+              @if (!allowAIGeneration; ) {
+                <span style="float: right; padding-right: 5px;">Searching....</span>
+                <mat-spinner diameter="23" strokeWidth="5" style="margin-left: 8px; float: right"></mat-spinner>
+              } @else {
+                <span style="margin-left: 15px; float: right; margin-top: 20px;"><button mat-raised-button
+                                                                                         [disabled]="!aiGenerationForm.invalid"
+                                                                                         style="color: #aba7a7; background: #495153; width: 190px;">Search</button></span>
+              }
             } @else {
               <span style="margin-left: 15px; float: right; margin-top: 20px;"><button mat-raised-button
-                                                                                       [disabled]="!aiGenerationForm.invalid"
-                                                                                       style="color: #aba7a7; background: #495153; width: 190px;">Generate Response</button></span>
+                                                                                       [disabled]="!allowAIGeneration"
+                                                                                       style="color: #eeeeee; background: #ff9824; width: 190px;"
+                                                                                       (click)="geminiGenerate()">Search</button></span>
             }
-          } @else {
-            <span style="margin-left: 15px; float: right; margin-top: 20px;"><button mat-raised-button
-                                                                                     [disabled]="!allowAIGeneration"
-                                                                                     style="color: #eeeeee; background: #ff9824; width: 190px;"
-                                                                                     (click)="geminiGenerate()">Generate Response</button></span>
-          }
-        </form>
+          </form>
+        </div>
+
+
       </div>
     </div>
+  </div>
 </main>
 
 

@@ -27,8 +27,8 @@ export class LayoutContainerComponent {
 
 
   public routeLinks = [
-    { link: "gemini-ai", name: "YoRHa 2B", icon: "call_to_action" },
-    { link: "activity", name: "Activity", icon: "view_list" },
+    { link: "gemini-ai", name: "Viewer", icon: "call_to_action" },
+    { link: "activity", name: "Dataset", icon: "view_list" },
     { link: "info", name: "Info", icon: "info_outline" },
   ];
 

@@ -22,25 +22,20 @@ def create_app():
     def index():
         return send_from_directory(app.static_folder, 'index.html')
 
-    @app.route('/<path:path>', methods=['GET'])
-    def serve_angular(path=None):
-        if path is not None and os.path.exists(os.path.join(app.static_folder, path)):
-            return send_from_directory(app.static_folder, path)
-        return send_from_directory(app.static_folder, 'index.html')
 
     @app.route('/<path:path>')
     def static_proxy(path):
         return send_from_directory(app.static_folder, path)
 
     # Set up a cloud MongoDB client
-    client = MongoClient(app.config['MONGO_URI_GOOGLE_CLOUD'])
+    # client = MongoClient(app.config['MONGO_URI_GOOGLE_CLOUD'])
 
     # Create a local mongodb client
-    # client = MongoClient('localhost', 27017)
+    client = MongoClient('localhost', 27017)
 
-    app.db = client.google_ai_api
+    app.db = client.UCS_Satellite
 
-    app.aiResponses = app.db.aiResponses
+    app.usc_satellite = app.db.usc_satellite
 
     # Enable CORS for all routes
     CORS(app, resources={r"/*": {"origins": allowed_origins}})
