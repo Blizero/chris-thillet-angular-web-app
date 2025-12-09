@@ -1,102 +1,299 @@
-# Google Gemini AI, Angular 18, Flask Application
+# Satellite Mission Prediction, AI Chat, and 3D Orbit Visualization
+### *Angular 18 • Flask • scikit-learn • MongoDB • Three.js • Google Gemini AI*
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.3.
+This repository contains a full-stack application integrating:
 
-## Development server
+- Angular 18 front-end
+- Flask backend
+- Google Gemini AI text generation
+- Machine Learning mission prediction using scikit-learn
+- MongoDB storage
+- Three.js 3D Earth + satellite orbit visualization
+- AG-Grid interactive satellite table
+- A Jupyter Notebook for data preparation and model training
 
-Feel free to use Conda or Venv for the environment creation
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+# Angular 18 Application
 
-## Code scaffolding
+## Development Server
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Use Conda or venv for environment creation.
+
+```bash
+ng serve
+```
+
+Navigate to:
+
+```
+http://localhost:4200/
+```
+
+The application automatically reloads when source files change.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-
-# Flask-MongoDB-App
-This is a Flask and Angular 18 Application that connects to MongoDB and Google Gemini's AI API in order to create an AI chatbot
-
-# Flask Application with MongoDB Database Connection
-
-This is a simple Flask web application that demonstrates how to connect to a MongoDB database.
-It utilizes google gemini's api models to generate text responses.
-
-## Google AI Studio
-GOOGLE_API_KEY is required in order to generate AI responses locally
-https://aistudio.google.com/app/apikey
-
-
-## Prerequisites
-
-Before running the application, make sure you have the following installed:
-
-- Python
-- Flask
-- MongoDB
-- pymongo (Python MongoDB driver)
-
-Create the virtual environment and source the activation script:  
-python3 -m venv venv && source venv/bin/activate
-
-Install Flask:
-
-pip install Flask
-pip install -r requirements.txt
-
-You can install the required Python packages using pip:
-
 ```bash
-pip install Flask pymongo
+ng build
 ```
 
-Setting up MongoDB
-Install MongoDB on your system if you haven't already. You can download it from MongoDB's official website.
-MongoDb Community - https://www.mongodb.com/try/download/community-kubernetes-operator
-MongoDb Compass - https://www.mongodb.com/try/download/compass
-MongoDb Atlas - https://www.mongodb.com/try/download/atlascli
+## Unit Tests
 
-Start the MongoDB server in your command prompt:
+```bash
+ng test
+```
+
+## Key Angular Features
+
+The front-end includes:
+
+- Google Gemini AI chat component
+- AG-Grid satellite table with row selection
+- Three.js 3D Earth + orbit visualization
+- Automatic ML prediction on satellite table row selection
+- Responsive layout with Angular Material
+
+Selecting a satellite row triggers:
+
+1. A POST request to `/predict`
+2. A machine learning inference
+3. Live 3D orbit rendering with animated satellite motion
+
+---
+
+# Flask Backend
+
+The Flask server handles:
+
+- MongoDB interaction
+- ML inference
+- Google Gemini text generation
+- REST API endpoints
+- Model loading and preprocessing
+
+## Flask Endpoints
+
+| Endpoint | Method | Description |
+|---------|--------|-------------|
+| `/generate` | POST | Google Gemini text generation |
+| `/save-response` | POST | Saves chat history to MongoDB |
+| `/responses` | GET | Retrieves stored AI responses |
+| `/predict` | POST | Runs ML mission prediction + returns cleaned satellite data |
+
+## Backend Setup
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+Run Flask:
+
+```bash
+python app.py
+```
+
+Flask runs on:
+
+```
+http://127.0.0.1:5000/
+```
+
+You may need to disable AirPlay on macOS if port 5000 is occupied.
+
+---
+
+# MongoDB Configuration
+
+Supported options:
+
+- MongoDB Community Server
+- MongoDB Atlas Cloud
+- MongoDB Compass for GUI
+
+Start Mongo shell:
 
 ```bash
 mongosh
 ```
 
-Create a MongoDB database named google_ai_api and a collection named aiResponses where your data will be stored.
+The application uses:
 
-Start the Flask application:
-```bash
-python app.py
+```
+Database: google_ai_api
+Collections:
+  - aiResponses
+  - usc_satellite
 ```
 
-The application should now be running on http://127.0.0.1:5000/. You can access it in your web browser. (If on Macbook, airplay might be running on port 5000, turn off or change port assignment)
+Satellite data includes:
 
-Usage
-YoRha 2B powered by Google Gemini, accessible to everyone without needing an account.
-This chatbot leverages advanced natural language processing to deliver intelligent, accurate, and context-aware responses to user queries.
+- name_of_satellite
+- perigee_km
+- apogee_km
+- inclination_deg
+- eccentricity
+- longitude_geo_deg
+- period_min
+- class_of_orbit
 
-Project Structure
-app.py: The main Flask application.
-templates/index.html: HTML template for rendering the list of todo items.
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
+---
 
-Acknowledgments
-This project was created as an educational resource for connecting Flask with MongoDB.
-Feel free to modify this README to include any additional information specific to your project. Enjoy using your Flask application with MongoDB!
+# Machine Learning Model (scikit-learn)
 
-### Application Created by Chris Thillet (Blizero)- December 2025
+The ML pipeline (in `app/ml/train_model.py`) includes:
+
+- CSV ingestion (publicly hosted raw-link dataset)
+- Data cleaning and feature engineering
+- Label encoding for mission type
+- Training three models:
+    - RandomForestClassifier
+    - LogisticRegression
+    - GradientBoostingClassifier
+- Best-model selection
+- Saving a model bundle with:
+    - model
+    - scaler
+    - feature names
+    - class labels
+    - timestamp
+
+## Train the Model
+
+```bash
+python -m app.ml.train_model
+```
+
+## Prediction Example
+
+Request:
+
+```json
+{
+  "perigee_km": 476,
+  "apogee_km": 500,
+  "inclination_deg": 97.4,
+  "eccentricity": 0.00175,
+  "longitude_geo_deg": 0,
+  "period_min": 95,
+  "class_of_orbit": "LEO"
+}
+```
+
+Response:
+
+```json
+{
+  "input": {...},
+  "predicted_mission_type": "Earth Observation",
+  "probabilities": {
+    "Communications": 0.14,
+    "Earth Observation": 0.58,
+    "Navigation": 0.01,
+    "Other": 0.00,
+    "Science/Tech": 0.25
+  },
+  "trained_feature_count": 107,
+  "name_of_satellite": "WorldView-2"
+}
+```
+
+---
+
+# Three.js 3D Visualization
+
+The app renders:
+
+### Realistic Earth
+- 2K NASA texture (`2k_earth_daymap.jpg`)
+- Phong shading
+- Ambient + directional lights
+- Slow Earth rotation animation
+
+###  Satellite Geometry
+Each satellite includes:
+
+- Main body (box geometry)
+- Solar panels (box geometry)
+- Antenna (cone/cylinder)
+
+###  Orbital Rendering
+- Orbit computed from perigee/apogee
+- Plane tilted by inclination
+- RAAN/longitude applied
+- Orbit ring drawn with LineLoop
+
+### ⏱Animated Satellite Motion
+- Orbital period converted to angular velocity
+- Time-scaled for visibility
+- Satellite moves smoothly along orbit
+
+Multiple satellites can be animated simultaneously.
+
+---
+
+# AG-Grid Integration
+
+AG-Grid displays satellites with:
+
+- Satellite name
+- Orbital parameters
+- Orbit class
+- ID
+
+Row selection triggers:
+
+- Model prediction
+- Orbit rendering
+- Satellite animation update
+
+---
+
+# Jupyter Notebook (Machine Learning Workflow)
+
+Notebook tasks:
+
+- Load CSV from GitHub raw or Google Drive direct-download
+- Clean data, normalize fields
+- Handle missing values
+- Encode class labels
+- Plot histograms, correlations, distributions
+- Train ML models
+- Compare accuracy
+- Save final CSV + model bundle
+
+---
+
+# Project Structure
+
+```
+/app
+  app.py
+  /ml
+    train_model.py
+    models/
+  /routes
+/src
+  /app
+    /components
+    /services
+  /assets/textures
+public-assets/
+notebooks/
+requirements.txt
+README.md
+```
+
+---
+
+# License
+
+MIT License.
+
+---
+
+# Acknowledgments
+
+Application created by **Chris Thillet (Blizero)** — *December 2025*.
